@@ -1,7 +1,7 @@
     
 
   .hero-container {
-     background: url('./../components/1.png') center center/cover no-repeat; 
+     background: url('./../components/laptop1.jpg') center center/cover no-repeat; 
     /*background-color: rgb(216, 214, 214);*/
     background-position: 0% 50%;
     background-size: 100% 100%;
@@ -18,7 +18,7 @@
   }
   
   .hero-container > h1 {
-    color: rgb(127, 160, 157);
+    color: white;
     font-size: 100px;
     margin-top: -120px;
     margin-left: -730px;

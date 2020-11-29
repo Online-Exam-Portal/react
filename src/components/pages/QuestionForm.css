@@ -1,4 +1,13 @@
-.form p {
+
+body {
+    background-color: white !important;
+}
+
+.container {
+    background-color: white;
+}
+
+/*.form p {
     color: darkmagenta;
 }
 
@@ -20,3 +29,4 @@
     padding: 25px;
     background-color: rgb(232, 238, 243);
 }
+*/

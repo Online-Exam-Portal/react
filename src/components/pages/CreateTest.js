@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import '../../App.css';
-import './CreateTest.css'
 import QuestionForm from './QuestionForm'
 
 
