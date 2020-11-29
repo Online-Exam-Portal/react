@@ -1,0 +1,22 @@
+.form p {
+    color: darkmagenta;
+}
+
+.Question {
+    font-size: 30px;
+    color: rgb(92, 10, 10);
+}
+
+.Topic {
+    font-size: 25px;
+}
+
+.Topic p {
+    font-size: 16px;
+    color: dimgrey;
+}
+
+.section {
+    padding: 25px;
+    background-color: rgb(232, 238, 243);
+}
