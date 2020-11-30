@@ -7,6 +7,10 @@ body {
     background-color: white;
 }
 
+.btn {
+    background-color: rgb(245, 178, 10)!important;
+}
+
 /*.form p {
     color: darkmagenta;
 }

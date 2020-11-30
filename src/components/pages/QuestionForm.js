@@ -60,7 +60,7 @@ function QuestionForm() {
         <div className='row py-5 mt-4 align-items-center'>
           <div className='col-md-5 pr-lg-5 mb-5 mb-md-0'>
             <img
-              src='https://res.cloudinary.com/mhmd/image/upload/v1569543678/form_d9sh6m.svg'
+              src='https://www.flaticon.com/svg/static/icons/svg/2333/2333132.svg'
               alt=''
               className='img-fluid mb-3 d-none d-md-block'
             />
@@ -193,7 +193,7 @@ function QuestionForm() {
                   <div className='form-group col-lg-12 mx-auto mb-0'>
                   <button
                     type='submit'
-                    className='btn btn-primary btn-block py-2'>
+                    className='btn btn- btn-block py-2'>
                     <span className='font-weight-bold'>
                       Create the question
                     </span>

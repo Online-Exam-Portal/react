@@ -11,8 +11,11 @@ class TakeTest extends Component{
     questionBank: [],
     score: 0,
     responses: 0,
+    getResult: false
   };
  
+  
+
   getQuestions = () => {
 
     axios.get(`http://localhost:5000/mcq`)
@@ -20,7 +23,7 @@ class TakeTest extends Component{
         this.setState({
           questionBank:res.data 
         });
-        console.log(JSON.stringify(res.data))
+        
     })
     /*
     quizService().then(question =>{
@@ -28,6 +31,7 @@ class TakeTest extends Component{
         questionBank: question
       });
     });*/
+
     
   };
 
@@ -63,12 +67,20 @@ computeAnswer = (answer, correctAnswer, optionA, optionB, optionC, optionD) =>{
 
 }
 
+getResult = (score, playAgain) => {
+
+  alert("Inside get result")
+  alert("Score: " + score)
+
+}
+
 playAgain =() => {
   this.getQuestions();
   this.setState({
     score :0,
     responses:0,
   });
+  window.location.reload();
 }
 
 componentDidMount(){
@@ -76,18 +88,34 @@ componentDidMount(){
 }
   render(){
 
-       return<div className="container">
-         <div className="title">Topic</div>
-          { 
-            this.state.questionBank.length >0 && this.state.responses <5 &&
-            this.state.questionBank.map(({question_id, question, optionA, optionB, optionC, optionD, correct_option}) => (
-              <QuestionBox question={question} optionA={optionA} optionB={optionB} optionC={optionC} optionD={optionD} 
-              key={question_id} 
-              selected={answer => this.computeAnswer(answer, correct_option)}/>
-            ) 
-          )}     
-{this.state.responses === 5 ? (<Result score={this.state.score} playAgain={this.playAgain}/>) : null }
-         </div>
+    let AllDone = false;
+
+      console.log("Responses : " + this.state.responses)
+      console.log("len : " + this.state.questionBank.length)
+       return(
+        <div className='container'>
+          
+            { 
+              
+              this.state.questionBank.length > 0 && this.state.responses <= this.state.questionBank.length &&
+              this.state.questionBank.map(({question_id, question, optionA, optionB, optionC, optionD, correct_option}) => (
+                <QuestionBox question={question} optionA={optionA} optionB={optionB} optionC={optionC} optionD={optionD} 
+                key={question_id} 
+                selected={answer => this.computeAnswer(answer, correct_option, optionA, optionB, optionC, optionD)}/>
+                ) 
+              )
+            }
+            
+            <button type='submit' className='btn btn- btn-block py-2' onClick={AllDone=true}>
+                <span className='font-weight-bold'>
+                    Submit the test
+                </span>
+            </button>
+
+            {AllDone ? (<Result score={this.state.score} playAgain={this.playAgain} total={this.state.questionBank.length}/>) : null }
+          
+        </div>
+         );
   }
   
 }

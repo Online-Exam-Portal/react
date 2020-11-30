@@ -8,4 +8,11 @@
    justify-content: center;
    align-items: center;
    object-fit: contain;
+   
+ }
+
+ body {
+  background-image: none;
+  background-color: white!important;
+  height: 100%;
  }

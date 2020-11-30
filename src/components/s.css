@@ -46,7 +46,7 @@
   .answerBtn {
     position: relative;
     padding: 10px;
-    background-color: rgb(16, 105, 133);
+    background-color: rgb(245, 178, 10)!important;
     display: inline-block;
     margin: 10px;
     outline: none;
