@@ -6,32 +6,31 @@ import Result from '../Result';
 import axios from 'axios';
 import '../../App.css';
 
+
 class TakeTest extends Component{
+  
   state={
     questionBank: [],
     score: 0,
     responses: 0,
-    getResult: false
+    AllDone: false,
+    which_test: '',
+    Tests: undefined,
   };
- 
-  
 
-  getQuestions = () => {
+  getQuestions = (id) => {  
 
+    let idNum = parseInt(id)
+    alert("API calls " + id)
+    function checkTest(object) {
+      return object.test_id===idNum;
+    }
     axios.get(`http://localhost:5000/mcq`)
       .then(res => {
         this.setState({
-          questionBank:res.data 
-        });
-        
+          questionBank:res.data.filter(checkTest)
+        });  
     })
-    /*
-    quizService().then(question =>{
-      this.setState({
-        questionBank: question
-      });
-    });*/
-
     
   };
 
@@ -75,7 +74,7 @@ getResult = (score, playAgain) => {
 }
 
 playAgain =() => {
-  this.getQuestions();
+  this.getQuestions(this.props.id);
   this.setState({
     score :0,
     responses:0,
@@ -83,19 +82,39 @@ playAgain =() => {
   window.location.reload();
 }
 
-componentDidMount(){
-  this.getQuestions();
+callResult = () => {
+  this.setState({
+    AllDone: true
+  })
 }
+
+
+
+
+componentDidMount(){
+  this.getQuestions(this.props.id);  
+}
+
+   
+
   render(){
 
-    let AllDone = false;
-
+      
       console.log("Responses : " + this.state.responses)
       console.log("len : " + this.state.questionBank.length)
+      if((this.state.questionBank[0])!==undefined)
+       console.log("hello : " + JSON.stringify(this.state.questionBank))
+      else
+        console.log("whyyyyyyyyy")
+
        return(
         <div className='container'>
-          
-            { 
+
+          <div className='d-flex justify-content-center input-group col-lg-12 mb-4'>
+            Quiz Time!       
+          </div>
+
+            {  
               
               this.state.questionBank.length > 0 && this.state.responses <= this.state.questionBank.length &&
               this.state.questionBank.map(({question_id, question, optionA, optionB, optionC, optionD, correct_option}) => (
@@ -105,14 +124,14 @@ componentDidMount(){
                 ) 
               )
             }
-            
-            <button type='submit' className='btn btn- btn-block py-2' onClick={AllDone=true}>
+
+           <button type='submit' className='btn btn- btn-block py-2' onClick={this.callResult}>
                 <span className='font-weight-bold'>
                     Submit the test
                 </span>
-            </button>
+          </button> 
 
-            {AllDone ? (<Result score={this.state.score} playAgain={this.playAgain} total={this.state.questionBank.length}/>) : null }
+            {this.state.AllDone ? (<Result score={this.state.score} playAgain={this.playAgain} total={this.state.questionBank.length}/>) : null }
           
         </div>
          );
@@ -120,7 +139,7 @@ componentDidMount(){
   
 }
 
-export default TakeTest
+export default TakeTest;
 
 
 

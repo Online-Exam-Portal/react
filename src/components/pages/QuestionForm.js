@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './QuestionForm.css';
 
@@ -11,6 +11,36 @@ function QuestionForm() {
   const [optionC, setOptionC] = useState("");
   const [optionD, setOptionD] = useState("");
   const [correct_option, setCorrect_option] = useState("");
+  const [Tests, setTests] = useState(undefined)
+  const [test_id, settest_id] = useState("")
+
+  function getOptions() {
+    try {
+        axios
+          .get("http://localhost:5000/tests")
+          .then(res => {
+              console.log(res.data.map((obj)=>{
+                return obj.test_id;
+              }))
+              setTests(res.data)
+            });
+      } catch (e) {
+        alert("Axios error!" + e);
+      }
+}
+
+useEffect(() => {
+  getOptions()
+}, [])
+
+let testList = ''
+let testList1 = ''
+
+if(Tests!==undefined) {
+  testList = Tests.map((x) => {return(<option key={x.test_id}>{x.test_id}</option>)});
+  testList1 = Tests.map((x) => {return(<li key={x.test_id}>{x.test_id} : {x.test_topic}</li>)});
+}
+
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -30,6 +60,7 @@ function QuestionForm() {
             optionC: optionC,
             optionD: optionD,
             correct_option: correct_option,
+            test_id: test_id
           })
           .then(function (response) {
             alert("Form successfully submitted.");
@@ -47,6 +78,7 @@ function QuestionForm() {
       setOptionC("");
       setOptionD("");
       setCorrect_option("");
+      setTests(undefined)
     // e.preventDefualt()
   };
 
@@ -71,6 +103,29 @@ function QuestionForm() {
             <form onSubmit={submitForm}>
               <div className='row'>
                 
+              <div className='d-flex justify-content-center input-group col-lg-12 mb-4'>
+                  <div className='input-group-prepend'>
+                    <span className='input-group-text bg-white px-4 border-md border-right-0'>
+                      <i className='fa fa-envelope text-muted'></i>
+                    </span>
+                  </div>
+                  <select
+                    id='college'
+                    type='college'
+                    name='college'
+                    className='form-control bg-white border-left-0 border-md'
+                    onChange={(e) => settest_id(e.target.value)}
+                    value={test_id}>
+                    <option>Choose a topic</option>
+                    {testList}
+                  </select>
+            </div>
+            <div className='d-flex justify-content-center input-group col-lg-12 mb-4'>
+                  <ul type='none'>
+                    {testList1}
+                  </ul>
+            </div>
+
                 <div className='input-group col-lg-12 mb-4'>
                   <div className='input-group-prepend'>
                     <span className='input-group-text bg-white px-4 border-md border-right-0'>

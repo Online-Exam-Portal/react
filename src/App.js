@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import TakeTest from './components/pages/TakeTest';
 import CreateTest from './components/pages/CreateTest';
 import SignUp from './components/pages/SignUp';
+import WhichTest from './components/pages/WhichTest';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Navbar />
         <Switch>
           <Route path='/' exact component={Home} />
+          <Route path='/WhichTest' component={WhichTest} />
           <Route path='/TakeTest' component={TakeTest} />
           <Route path='/CreateTest' component={CreateTest} />
           <Route path='/SignUp' component={SignUp} />
