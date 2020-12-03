@@ -58,7 +58,15 @@ function Navbar() {
                 Create Test
               </Link>
             </li>
-
+            <li className='nav-item'>
+              <Link
+                to='/AddTopic'
+                className='nav-links'
+                onClick={closeMobileMenu}
+              >
+                Add Topic
+              </Link>
+            </li>
             <li>
               <Link
                 to='/SignUp'

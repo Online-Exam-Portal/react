@@ -12,6 +12,7 @@ import CreateTest from './components/pages/CreateTest';
 import SignUp from './components/pages/SignUp';
 import Login from './components/pages/Login';
 import WhichTest from './components/pages/WhichTest';
+import Topic from './components/pages/AddTopic';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path='/CreateTest' component={CreateTest} />
           <Route path='/SignUp' component={SignUp} />
           <Route path='/Login'component={Login} />
+          <Route path='/AddTopic'component={Topic} />
         </Switch>
       </Router>
     </div>

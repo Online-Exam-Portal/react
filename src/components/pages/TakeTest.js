@@ -131,7 +131,7 @@ componentDidMount(){
                 </span>
           </button> 
 
-            {this.state.AllDone ? (<Result score={this.state.score} playAgain={this.playAgain} total={this.state.questionBank.length}/>) : null }
+            {this.state.AllDone ? (<Result score={this.state.score} playAgain={this.playAgain} total={this.state.questionBank.length} test_id={this.props.id}/>) : null }
           
         </div>
          );
