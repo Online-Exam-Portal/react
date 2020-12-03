@@ -3,7 +3,6 @@ import '../../App.css';
 import './CreateTest.css'
 import SignUpForm from './SignUpForm'
 
-
 class SignUp extends Component {
   state = {
     fields: {}

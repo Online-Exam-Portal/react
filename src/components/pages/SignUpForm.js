@@ -83,7 +83,7 @@ render() {
       style={{height:"40px",width:"120px",color: "white",marginLeft: "140px",background: "rgb(87, 169, 250)"}}>Sign Up</button>
       <br />
       </div>
-    </form>
+      </form>
   );
 }
 }
