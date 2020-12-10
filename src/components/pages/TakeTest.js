@@ -33,6 +33,7 @@ class TakeTest extends Component{
     })
     
   };
+  
 
 computeAnswer = (answer, correctAnswer, optionA, optionB, optionC, optionD) =>{
   
@@ -61,7 +62,7 @@ computeAnswer = (answer, correctAnswer, optionA, optionB, optionC, optionD) =>{
     });
   }
   this.setState({
-    responses: this.state.responses < 5 ? this.state.responses +1 :5
+    responses: this.state.responses < this.state.questionBank.length  ? this.state.responses +1 :this.state.questionBank.length 
   });
 
 }
@@ -82,7 +83,21 @@ playAgain =() => {
   window.location.reload();
 }
 
+
+
+
 callResult = () => {
+
+  let id = localStorage.getItem("id")
+
+  axios.post("http://localhost:5000/result", {
+    student_id: id,
+    test_id: this.props.id,
+    score: this.state.score,
+  }).then(res=>{
+      console.log(res)
+  })
+
   this.setState({
     AllDone: true
   })

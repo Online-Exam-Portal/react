@@ -58,7 +58,6 @@ if(Tests!==undefined) {
       try {
         axios
           .post("http://localhost:5000/mcq", {
-            question_id: question_id,
             question: question,
             optionA: optionA,
             optionB: optionB,
@@ -138,7 +137,7 @@ if(Tests!==undefined) {
                       {testList1}
                     </ul>
               </div>
-  
+              {/*
                   <div className='input-group col-lg-12 mb-4'>
                     <div className='input-group-prepend'>
                       <span className='input-group-text bg-white px-4 border-md border-right-0'>
@@ -154,7 +153,7 @@ if(Tests!==undefined) {
                       onChange={(e) => setQuestion_id(e.target.value)}
                       value={question_id}
                     />
-                  </div>
+                  </div> */}
   
                   <div className='input-group col-lg-12 mb-4'>
                     <div className='input-group-prepend'>

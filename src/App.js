@@ -13,6 +13,7 @@ import SignUp from './components/pages/SignUp';
 import Login from './components/pages/Login';
 import WhichTest from './components/pages/WhichTest';
 import Topic from './components/pages/AddTopic';
+import Report from './components/pages/Report';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path='/SignUp' component={SignUp} />
           <Route path='/Login'component={Login} />
           <Route path='/AddTopic'component={Topic} />
+          <Route path='/Report'component={Report} />
         </Switch>
       </Router>
     </div>

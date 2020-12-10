@@ -74,9 +74,20 @@ function Navbar() {
                 onClick={closeMobileMenu}
               > 
               </Link>
-            </li>           
+            </li>     
          </ul>   
          {button && <Button buttonStyle='btn--outline'></Button>}
+         <ul>
+         <li className='nav-item'>
+              <Link
+                to='/Report'
+                className='nav-links'
+                onClick={closeMobileMenu}
+              >
+                Report
+              </Link>
+            </li>
+          </ul>
         </div>
       </nav>
     </div>
