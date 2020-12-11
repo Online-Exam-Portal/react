@@ -86,7 +86,7 @@ function Navbar() {
               >
                 Report
               </Link>
-            </li>
+          </li>
           </ul>
         </div>
       </nav>
