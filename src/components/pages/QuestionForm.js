@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import './QuestionForm.css';
+import './styles/QuestionForm.css';
 
 function QuestionForm() {
 
@@ -13,6 +13,7 @@ function QuestionForm() {
   const [correct_option, setCorrect_option] = useState("");
   const [Tests, setTests] = useState(undefined)
   const [test_id, settest_id] = useState("")
+  const [update, setUpdate] = useState(false)
 
 
   console.log("role" + localStorage.getItem("role"))
@@ -42,7 +43,7 @@ let testList = ''
 let testList1 = ''
 
 if(Tests!==undefined) {
-  testList = Tests.map((x) => {return(<option key={x.test_id}>{x.test_id}</option>)});
+  testList = Tests.map((x) => {return(<option key={x.test_id}>{[x.test_id, x.test_topic]}</option>)});
   testList1 = Tests.map((x) => {return(<li key={x.test_id}>{x.test_id} : {x.test_topic}</li>)});
 }
 
@@ -54,7 +55,32 @@ if(Tests!==undefined) {
         JSON.stringify({ question , correct_option })
     );
 
-  
+
+    if(update) {
+
+      try {
+        axios
+          .put(`http://localhost:5000/mcq/${question_id}`, {
+            question: question,
+            optionA: optionA,
+            optionB: optionB,
+            optionC: optionC,
+            optionD: optionD,
+            correct_option: correct_option,
+            test_id: test_id
+          })
+          .then(function (response) {
+            alert("Form successfully submitted.");
+            console.log(response);
+            console.log(response.data);
+          });
+      } catch (e) {
+        alert("Axios error!" + e);
+      }
+
+
+    }else{
+
       try {
         axios
           .post("http://localhost:5000/mcq", {
@@ -74,6 +100,11 @@ if(Tests!==undefined) {
       } catch (e) {
         alert("Axios error!" + e);
       }
+
+
+    }
+  
+      
 
       setQuestion_id("");
       setQuestion("");
@@ -126,18 +157,34 @@ if(Tests!==undefined) {
                       type='college'
                       name='college'
                       className='form-control bg-white border-left-0 border-md'
-                      onChange={(e) => settest_id(e.target.value)}
-                      value={test_id}>
+                      onChange={(e) => settest_id(e.target.value[0])}
+                      >
                       <option>Choose a topic</option>
                       {testList}
                     </select>
               </div>
-              <div className='d-flex justify-content-center input-group col-lg-12 mb-4'>
+             {/* <div className='d-flex justify-content-center input-group col-lg-12 mb-4'>
                     <ul type='none'>
                       {testList1}
                     </ul>
+    </div>*/}
+              <div className='d-flex justify-content-center input-group col-lg-12 mb-4'>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" 
+                value="create"
+                onClick={()=>{setUpdate(false)}}/>
+                <label class="form-check-label" for="inlineRadio1">Create question</label>
               </div>
-              {/*
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" 
+                value="update"
+                onClick={()=>{setUpdate(true)}}/>
+                <label class="form-check-label" for="inlineRadio2">Update question</label>
+              </div>
+
+              </div>
+              {update?
                   <div className='input-group col-lg-12 mb-4'>
                     <div className='input-group-prepend'>
                       <span className='input-group-text bg-white px-4 border-md border-right-0'>
@@ -153,7 +200,7 @@ if(Tests!==undefined) {
                       onChange={(e) => setQuestion_id(e.target.value)}
                       value={question_id}
                     />
-                  </div> */}
+                  </div>:null }
   
                   <div className='input-group col-lg-12 mb-4'>
                     <div className='input-group-prepend'>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import './Login.css';
+import './styles/Login.css';
 import loginlogo from './loginlogo.png';
 import axios from 'axios';
 
@@ -20,6 +20,7 @@ export default function App() {
             if(res.data.code===200) {
               localStorage.setItem("role", data.role);
               localStorage.setItem("id", data.id);
+              
             }
 
           });

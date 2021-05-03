@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import './QuestionForm.css';
+import './styles/QuestionForm.css';
 
 function Report() {
 
@@ -42,14 +42,19 @@ if(Report!==undefined) {
 
 if(role==='teacher') {
   reportList = Report.map((x) => {
-    return(<tr>
-            <th>{++count}</th>
-            <td>{x.student_id}</td>
-            <td>{x.s_name}</td>
-            <td>{x.test_id}</td>
-            <td>{x.test_topic}</td>
-            <td>{x.score}</td>
-           </tr>)
+
+
+    if(x.teacher_id===parseInt(ID)) {
+      return(<tr>
+        <th>{x.teacher_id===parseInt(ID)?++count:null}</th>
+        <td>{x.teacher_id===parseInt(ID)?x.student_id:null}</td>
+        <td>{x.teacher_id===parseInt(ID)?x.s_name:null}</td>
+        <td>{x.teacher_id===parseInt(ID)?x.test_id:null}</td>
+        <td>{x.teacher_id===parseInt(ID)?x.test_topic:null}</td>
+        <td>{x.teacher_id===parseInt(ID)?x.score:null}</td>
+       </tr>)
+    }
+    
  });
 }else{
 
@@ -59,14 +64,19 @@ if(role==='teacher') {
  
   reportList = Report.map((x) => {
     console.log(typeof(x.student_id))
-    return(<tr>
-            <th>{x.student_id===parseInt(ID)?++count:null}</th>
-            <td>{x.student_id===parseInt(ID)?x.student_id:null}</td>
-            <td>{x.student_id===parseInt(ID)?x.s_name:null}</td>
-            <td>{x.student_id===parseInt(ID)?x.test_id:null}</td>
-            <td>{x.student_id===parseInt(ID)?x.test_topic:null}</td>
-            <td>{x.student_id===parseInt(ID)?x.score:null}</td>
-           </tr>)
+
+
+    if(x.student_id===parseInt(ID)){
+      return(<tr>
+        <th>{x.student_id===parseInt(ID)?++count:null}</th>
+        <td>{x.student_id===parseInt(ID)?x.student_id:null}</td>
+        <td>{x.student_id===parseInt(ID)?x.s_name:null}</td>
+        <td>{x.student_id===parseInt(ID)?x.test_id:null}</td>
+        <td>{x.student_id===parseInt(ID)?x.test_topic:null}</td>
+        <td>{x.student_id===parseInt(ID)?x.score:null}</td>
+       </tr>)
+    }
+
  });
 
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './QuestionForm.css';
+import './styles/QuestionForm.css';
 import axios from 'axios';
 
 export default class QuestionForm extends Component {

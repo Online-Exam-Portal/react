@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
-import "../s.css";
-import QuestionBox from "../QuestionBox"
+import "../Utilities/styles/s.css";
+import QuestionBox from "../Utilities/QuestionBox"
 import quizService from '../quizService'; 
-import Result from '../Result';
+import Result from '../Utilities/Result';
 import axios from 'axios';
 import '../../App.css';
 
@@ -21,7 +21,7 @@ class TakeTest extends Component{
   getQuestions = (id) => {  
 
     let idNum = parseInt(id)
-    alert("API calls " + id)
+    //alert("API calls " + id)
     function checkTest(object) {
       return object.test_id===idNum;
     }
@@ -33,6 +33,8 @@ class TakeTest extends Component{
     })
     
   };
+
+ 
   
 
 computeAnswer = (answer, correctAnswer, optionA, optionB, optionC, optionD) =>{
@@ -117,39 +119,62 @@ componentDidMount(){
       
       console.log("Responses : " + this.state.responses)
       console.log("len : " + this.state.questionBank.length)
+      const role = localStorage.getItem("role");
+
       if((this.state.questionBank[0])!==undefined)
        console.log("hello : " + JSON.stringify(this.state.questionBank))
       else
         console.log("whyyyyyyyyy")
+        if(role==="teacher") {
+          return(
+            <div>
+              Only students can access this page!
+            </div>
+          );
+        }else{
 
-       return(
-        <div className='container'>
 
-          <div className='d-flex justify-content-center input-group col-lg-12 mb-4'>
-            Quiz Time!       
-          </div>
+          if(!this.state.AllDone) {
 
-            {  
-              
-              this.state.questionBank.length > 0 && this.state.responses <= this.state.questionBank.length &&
-              this.state.questionBank.map(({question_id, question, optionA, optionB, optionC, optionD, correct_option}) => (
-                <QuestionBox question={question} optionA={optionA} optionB={optionB} optionC={optionC} optionD={optionD} 
-                key={question_id} 
-                selected={answer => this.computeAnswer(answer, correct_option, optionA, optionB, optionC, optionD)}/>
-                ) 
-              )
-            }
+            return(
+              <div className='container'>
+      
+                <div className='d-flex justify-content-center input-group col-lg-12 mb-4'>
+                  Quiz Time!       
+                </div>
+      
+                  {  
+                    
+                    this.state.questionBank.length > 0 && this.state.responses <= this.state.questionBank.length &&
+                    this.state.questionBank.map(({question_id, question, optionA, optionB, optionC, optionD, correct_option}) => (
+                      <QuestionBox question={question} optionA={optionA} optionB={optionB} optionC={optionC} optionD={optionD} 
+                      key={question_id} 
+                      selected={answer => this.computeAnswer(answer, correct_option, optionA, optionB, optionC, optionD)}/>
+                      ) 
+                    )
+                  }
+      
+                 <button type='submit' className='btn btn- btn-block py-2' onClick={this.callResult}>
+                      <span className='font-weight-bold'>
+                          Submit the test
+                      </span>
+                </button> 
+      
+            {/*this.state.AllDone ? (<Result score={this.state.score} playAgain={this.playAgain} total={this.state.questionBank.length} test_id={this.props.id}/>) : null */}
+                
+              </div>
+               );
 
-           <button type='submit' className='btn btn- btn-block py-2' onClick={this.callResult}>
-                <span className='font-weight-bold'>
-                    Submit the test
-                </span>
-          </button> 
+          }else {
+              return(
+                <div className='container'>
+                  <Result score={this.state.score} playAgain={this.playAgain} total={this.state.questionBank.length} test_id={this.props.id}/>
+                </div>
+              );
+          }
 
-            {this.state.AllDone ? (<Result score={this.state.score} playAgain={this.playAgain} total={this.state.questionBank.length} test_id={this.props.id}/>) : null }
-          
-        </div>
-         );
+        
+          }
   }
   
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import './QuestionForm.css';
+import './styles/QuestionForm.css';
 
 function Topic() {
 
@@ -42,7 +42,7 @@ function Topic() {
 
   if(role==="student") {
     return(
-      <div>
+      <div style={{marginLeft: "40%", marginTop: "25%"}}>
         Only teachers can access this page!
       </div>
     );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
-import './Navbar.css';
+import './styles/Navbar.css';
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -74,7 +74,8 @@ function Navbar() {
                 onClick={closeMobileMenu}
               > 
               </Link>
-            </li>     
+            </li>
+           
          </ul>   
          {button && <Button buttonStyle='btn--outline'></Button>}
          <ul>

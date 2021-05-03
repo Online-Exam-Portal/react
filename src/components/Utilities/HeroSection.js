@@ -1,6 +1,6 @@
 import React from 'react';
-import '../App.css';
-import './HeroSection.css';
+import '../../App.css';
+import './styles/HeroSection.css';
 
 function HeroSection() {
   return (

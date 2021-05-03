@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import './QuestionForm.css';
+import './styles/QuestionForm.css';
 
 function Status() {
 
@@ -18,6 +18,7 @@ function Status() {
         axios
           .get("http://localhost:5000/status")
           .then(res => {
+              console.log(res.data)
               setReport(res.data)
               console.log("Report" + JSON.stringify(Report))
             });
@@ -45,6 +46,7 @@ if(role==='teacher') {
     return(<tr>
             <th>{++count}</th>
             <td>{x.student_id}</td>
+            <td>{x.s_name}</td>
             <td>{x.status}</td>
            </tr>)
  });
@@ -56,11 +58,14 @@ if(role==='teacher') {
  
     reportList = Report.map((x) => {
     console.log(typeof(x.student_id))
-    return(<tr>
-            <th>{x.student_id===parseInt(ID)?++count:null}</th>
-            <td>{x.student_id===parseInt(ID)?x.student_id:null}</td>
-            <td>{x.student_id===parseInt(ID)?x.status:null}</td>
-           </tr>)
+
+    if(x.student_id===parseInt(ID)) {
+      return(<tr>
+        <td>{x.student_id===parseInt(ID)?x.student_id:null}</td>
+        <th>{x.student_id===parseInt(ID)?x.s_name:null}</th>
+        <td>{x.student_id===parseInt(ID)?x.status:null}</td>
+       </tr>)
+    }
  });
 
 }
@@ -78,6 +83,7 @@ if(role==='teacher') {
                 <tr>
                 <th scope="col"> </th>
                 <th scope="col">Student ID</th>
+                <th scope="col">Name</th>
                 <th scope="col">Student Status</th>
                 </tr>
             </thead>
@@ -98,6 +104,7 @@ if(role==='teacher') {
                 <tr>
                 <th scope="col"> </th>
                 <th scope="col">Student ID</th>
+                <th scope="col">Name</th>
                 <th scope="col">Student Status</th>
                 </tr>
             </thead>

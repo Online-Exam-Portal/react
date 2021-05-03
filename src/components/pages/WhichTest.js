@@ -1,13 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import TakeTest from './TakeTest';
-import "../s.css";
-import QuestionBox from "../QuestionBox"
+import "../Utilities/styles/s.css";
+import QuestionBox from "../Utilities/QuestionBox"
 
 function WhichTest() {
 
     const [state, setstate] = useState(undefined)
     const [Tests, setTests] = useState(undefined)
+
+    const role = localStorage.getItem("role")
+
 
     function getOptions() {
         try {
@@ -36,14 +39,23 @@ function WhichTest() {
       let testList1 = ''
 
     if(Tests!==undefined) {
-    testList = Tests.map((x) => {return(<option key={x.test_id}>{x.test_id}</option>)});
+    testList = Tests.map((x) => {return(<option key={x.test_id}>{[x.test_id, x.test_topic]}</option>)});
     testList1 = Tests.map((x) => {return(<li key={x.test_id}>{x.test_id} : {x.test_topic}</li>)});
+    }
+
+
+    if(role==="teacher") {
+      return(
+        <div style={{marginLeft: "40%", marginTop: "20%"}}>
+          Only students can access this page!
+        </div>
+      );
     }
 
     if(state===undefined)
     return(
         <div className='container'>
-            <div className='d-flex justify-content-center input-group col-lg-12 mb-4'>
+            <div className='d-flex justify-content-center input-group col-lg-12 mb-4' style={{marginTop: "10%"}}>
                   <div className='input-group-prepend'>
                     <span className='input-group-text bg-white px-4 border-md border-right-0'>
                       <i className='fa fa-envelope text-muted'></i>
@@ -54,13 +66,14 @@ function WhichTest() {
                     type='college'
                     name='college'
                     className='form-control bg-white border-left-0 border-md'
-                    onChange={(e) => setstate(e.target.value)}
+                    onChange={(e) => setstate(e.target.value[0])}
                     value={state}>
                     <option>Choose a topic</option>
                     {testList}
                   </select>
             </div>
-            <div className='d-flex justify-content-center input-group col-lg-12 mb-4'>
+            
+            {/*<div className='d-flex justify-content-center input-group col-lg-12 mb-4'>
                   <ul type='none'>
                     {testList1}
                   </ul>
@@ -69,7 +82,7 @@ function WhichTest() {
                 <span className='font-weight-bold'>
                     Go to the test page
                 </span>
-            </button>
+            </button>*/}
 
             {/*state===undefined ? null : <TakeTest id={state}/>*/}
 
